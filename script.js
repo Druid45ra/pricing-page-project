@@ -18,16 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (isYearly) {
       // STARE: ANUAL
+      toggleBtn.classList.remove("bg-gray-700");
+      toggleBtn.classList.add("bg-primary");
 
-      // 1. Modificăm Butonul (Fundal Activ)
-      toggleBtn.classList.remove("bg-gray-700", "bg-gray-200"); // Curățăm orice fundal inactiv
-      toggleBtn.classList.add("bg-primary"); // Adăugăm fundalul activ
-
-      // 2. Mutăm Cercul
       toggleCircle.classList.remove("translate-x-0");
       toggleCircle.classList.add("translate-x-6");
 
-      // 3. Modificăm culorile etichetelor text
       labelYearly.classList.remove("text-gray-400");
       labelYearly.classList.add("text-white");
 
@@ -35,16 +31,12 @@ document.addEventListener("DOMContentLoaded", () => {
       labelMonthly.classList.add("text-gray-400");
     } else {
       // STARE: LUNAR
-
-      // 1. Modificăm Butonul (Fundal Inactiv - Dark Mode)
       toggleBtn.classList.remove("bg-primary");
       toggleBtn.classList.add("bg-gray-700");
 
-      // 2. Mutăm Cercul înapoi
       toggleCircle.classList.remove("translate-x-6");
       toggleCircle.classList.add("translate-x-0");
 
-      // 3. Resetăm culorile etichetelor
       labelYearly.classList.remove("text-white");
       labelYearly.classList.add("text-gray-400");
 
@@ -52,13 +44,12 @@ document.addEventListener("DOMContentLoaded", () => {
       labelMonthly.classList.add("text-white");
     }
 
-    // 4. Actualizăm Valorile Prețurilor
+    // Actualizăm Valorile Prețurilor
     prices.forEach((price) => {
       const amount = isYearly
         ? price.getAttribute("data-yearly")
         : price.getAttribute("data-monthly");
 
-      // Efect vizual de fade
       price.style.opacity = 0;
       setTimeout(() => {
         price.textContent = `$${amount}`;
@@ -66,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 200);
     });
 
-    // 5. Actualizăm Perioada (/lună vs /an)
+    // Actualizăm Perioada (/lună vs /an)
     periods.forEach((period) => {
       period.style.opacity = 0;
       setTimeout(() => {
@@ -76,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ================= LOGICA FAQ ACCORDION =================
+  // ================= LOGICA FAQ ACCORDION (IMBUNĂTĂȚITĂ) =================
   const accordionButtons = document.querySelectorAll(".accordion-button");
 
   accordionButtons.forEach((button) => {
@@ -84,21 +75,40 @@ document.addEventListener("DOMContentLoaded", () => {
       const isCurrentOpen = button.getAttribute("aria-expanded") === "true";
       const content = button.nextElementSibling;
 
-      // Închidem celelalte (opțional, pentru comportament strict de acordeon)
+      // Funcție pentru a închide un element
+      const closeAccordion = (btn, cont) => {
+        btn.setAttribute("aria-expanded", "false");
+        cont.classList.remove("open");
+        // Setăm max-height la 0 pentru tranziția de închidere
+        cont.style.maxHeight = null;
+      };
+
+      // Închidem celelalte elemente deschise (comportament strict de acordeon)
       accordionButtons.forEach((otherButton) => {
-        if (otherButton !== button) {
-          otherButton.setAttribute("aria-expanded", "false");
-          otherButton.nextElementSibling.classList.remove("open");
+        if (
+          otherButton !== button &&
+          otherButton.getAttribute("aria-expanded") === "true"
+        ) {
+          closeAccordion(otherButton, otherButton.nextElementSibling);
         }
       });
 
       // Comutăm starea curentă
       if (isCurrentOpen) {
-        button.setAttribute("aria-expanded", "false");
-        content.classList.remove("open");
+        // Dacă este deschis, îl închidem
+        closeAccordion(button, content);
       } else {
+        // Dacă este închis, îl deschidem
         button.setAttribute("aria-expanded", "true");
         content.classList.add("open");
+
+        // CALCULUL CRITIC: Setăm max-height la înălțimea reală a conținutului + padding
+        // scrollHeight este înălțimea conținutului, inclusiv padding-ul ascuns de overflow: hidden.
+        content.style.maxHeight = content.scrollHeight + "px";
+
+        // Opțional, după ce tranziția s-a terminat, putem seta înălțimea pe 'none' sau 'auto'
+        // pentru a permite ca elementul să se extindă dacă conținutul se schimbă dinamic,
+        // dar lăsăm 'maxHeight' setat la valoarea calculată pentru a păstra tranziția fluidă.
       }
     });
   });
