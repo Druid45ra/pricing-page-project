@@ -33,10 +33,16 @@ Acest proiect nu necesită un mediu de build complex (Webpack, Vite etc.) deoare
 ## 📂 Structura Proiectului
 
 ```text
-/pricing-page-dark
+/pricing-page-prod
 │
-├── index.html          # Pagina principală. Conține structura, stilizarea Tailwind.
-├── script.js           # Logica JavaScript (Toggle și Accordion).
+├── index.html
+├── script.js
+├── package.json          # Defineste dependințele NPM (Tailwind)
+├── tailwind.config.js    # Configurarea temei Tailwind
+└── src/
+    └── input.css         # Fișierul sursă CSS cu directive TailwindNOUL
+└── dist/
+    └── output.css        # Fișierul final, optimizat, generat de CLI
 └── README.md           # Fișierul curent de documentație.
 
 Decizii de Design și Implementare
