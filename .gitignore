@@ -1,0 +1,50 @@
+# ----------------------------------------------------------------------
+# DEPENDENȚE (Node/NPM)
+# ----------------------------------------------------------------------
+# Directorul unde NPM stochează toate pachetele instalate.
+# Nu trebuie comitat niciodată.
+/node_modules
+
+# Lock files generate de NPM. Acestea ar trebui comitate doar dacă ești 
+# într-un proiect care folosește lockfile strict, dar de obicei le ignorăm.
+package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# ----------------------------------------------------------------------
+# FIȘIERE GENERATE AUTOMAT (Tailwind/Build)
+# ----------------------------------------------------------------------
+# Directorul unde Tailwind generează fișierul CSS final
+/dist
+
+# ----------------------------------------------------------------------
+# CACHE & FIȘIERE DE SISTEM
+# ----------------------------------------------------------------------
+# Directorul de cache creat de NPM.
+.npm
+.cache
+
+# Fișiere de log generate de NPM
+npm-debug.log*
+yarn-debug.log*
+
+# Variabile de mediu locale (deși în acest proiect nu le folosim, 
+# e o practică bună să fie incluse)
+.env
+.env.local
+
+# Fișiere de sistem macOS
+.DS_Store
+
+# Fișiere de editare/backup temporare
+*~
+#*#
+
+# ----------------------------------------------------------------------
+# IDE & EDITOR-SPECIFIC
+# ----------------------------------------------------------------------
+# Visual Studio Code
+.vscode/
+
+# IntelliJ / WebStorm
+.idea/
