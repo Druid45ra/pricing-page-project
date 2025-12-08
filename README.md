@@ -38,3 +38,13 @@ Acest proiect nu necesită un mediu de build complex (Webpack, Vite etc.) deoare
 ├── index.html          # Pagina principală. Conține structura, stilizarea Tailwind.
 ├── script.js           # Logica JavaScript (Toggle și Accordion).
 └── README.md           # Fișierul curent de documentație.
+
+Decizii de Design și Implementare
+
+    Dark Mode: Paleta de culori a fost inversată (bg-black și bg-gray-900 pentru carduri) pentru a oferi un contrast plăcut, în timp ce culoarea primară (#6366F1) rămâne un punct focal.
+
+    Optimizare JS (Robustness): Logica de comutare a prețurilor utilizează atributele data-monthly și data-yearly din HTML pentru a decupla datele de prezentare. Metoda classList.remove/add este folosită pentru a asigura funcționalitatea Toggle-ului, evitând problemele de compatibilitate ale metodei replace.
+
+    Micro-interacțiuni: Cardurile folosesc clase precum hover:-translate-y-2 și transition-all duration-300 pentru a adăuga un sentiment de profunzime și interacțiune fluidă.
+
+    Accesibilitate FAQ: Componenta Accordion folosește atributele ARIA (aria-expanded) pe buton pentru a sprijini cititoarele de ecran.
